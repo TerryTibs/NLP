@@ -421,3 +421,251 @@ Opening heatmap window… (close the window to end the script)
   Meta-codebook decision: GO  ✓  — level-1 symbols are semantically meaningful.
          Meta-codebook experiment is well-motivated.
 ============================================================
+
+nlp_test3_gpt.py
+
+Tokenizer: BPE — vocab size = 1,000
+  BPE (fast/C++): training to vocab 1,000…
+[00:00:00] Pre-processing sequences       ███████████████████████████████████████████████████████████████████████████████████████████████████████████ 0        /        0
+[00:00:00] Tokenize words                 ███████████████████████████████████████████████████████████████████████████████████████████████████████████ 27       /       27
+[00:00:00] Count pairs                    ███████████████████████████████████████████████████████████████████████████████████████████████████████████ 27       /       27
+[00:00:00] Compute merges                 ███████████████████████████████████████████████████████████████████████████████████████████████████████████ 74       /       74
+  BPE vocab: 110 tokens
+  Tokens: train 2,523  val 277
+  num_symbols: 16 (start, target 16)
+  d_model: 128
+  n_heads: 8
+  num_layers: 2 (start)  max 16
+  seq_len_base: 14  seq_len_max (curriculum start): 64
+  Optimizer groups: 32 decay params, 68 no-decay params
+  Parameters: 745,108  |  Device: cuda
+  Compiling model with torch.compile (dynamic=True)…
+  Compile wrapper created; backend compilation is lazy.
+
+  Metrics CSV → neuro_symbolic_training_metrics.csv
+Starting training…
+
+Step     0/30000 | CE 5.4239 | PPL 226.77 | VQ 3.8981(β0.25,cc0.250) | MetaCB Act0.88 H0.47→2.50 β0.15 cc0.150 TopKH1.06 | MetaPred CE3.016 Acc0.00 λ0.020 Bal0.067 | ChunkUp Act1.00 H0.23→0.42 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 0.00e+00(λ1.01e-03,ρcal) | GKL 0.513(γ0.0501) | SymD μ0.000 ↑n/a | Act 72.3%[62–88] | TopK-H 1.070/1.10(τ0.20) | α μ0.060[0.06–0.06](λ0.0050) | H 0.43→0.83 | BS 64x14(t1024) | Seen 0.0M(0.4x) | ∇ 5.72→1.85 | vel n/a | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.1G | Thr 0.0k t/s | β2 0.9900 | LR 3.00e-06 | ⏱ 00:01:08 (+68.36s/step, ETA 17:40:47)
+  Gates: Bri=0.14 Dis=0.15 Foc=0.15 Col=0.15 Per=0.12 Siz=0.12 Pos=0.16
+  TopK-H/stream: Bri=1.07 Dis=1.06 Foc=1.08 Col=1.07 Per=1.06 Siz=1.08 Pos=1.06
+  ✦ Stream correlation baseline calibrated: 0.1242
+Step   100/30000 | CE 0.3406 | PPL 1.41 | VQ 3.9808(β0.25,cc0.226) | MetaCB Act1.00 H2.46→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE2.967 Acc0.06 λ0.020 Bal0.015 | ChunkUp Act1.00 H1.28→0.42 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 0.00e+00(λ3.03e-03,ρ0.124) | GKL 0.511(γ0.0599) | SymD μ0.000 ↑n/a | Act 76.8%[69–94] | TopK-H 1.087/1.10(τ0.20) | α μ0.061[0.06–0.06](λ0.0048) | H 2.25→0.84 | BS 20x50(t1024) | Seen 0.1M(40.0x) | ∇ 0.83→2.20 | vel +0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 10.3k t/s | β2 0.9900 | LR 3.00e-04 | ⏱ 00:01:18 (+0.10s/step, ETA 00:48:36)
+  ✦ Orth unlocked at step 120  (corr 0.1823 > baseline 0.1242 + 0.05)
+Step   200/30000 | CE 0.0404 | PPL 1.04 | VQ 3.7709(β0.24,cc0.199) | MetaCB Act1.00 H2.43→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE2.945 Acc0.05 λ0.020 Bal0.010 | ChunkUp Act1.00 H1.22→0.43 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 8.30e-03(λ1.62e-02,ρ0.280) | GKL 0.490(γ0.0716) | SymD μ0.000 ↑n/a | Act 72.3%[62–94] | TopK-H 1.081/1.10(τ0.20) | α μ0.061[0.06–0.06](λ0.0046) | H 2.13→0.85 | BS 18x56(t1024) | Seen 0.2M(79.4x) | ∇ 0.59→0.75 | vel -0.0015 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 24.2k t/s | β2 0.9901 | LR 3.00e-04 | ⏱ 00:01:22 (+0.04s/step, ETA 00:20:39)
+  💾 Checkpoint saved (best val): neuro_symbolic_model_best.pt  (step 200)
+  ↳ Val CE 0.0155  PPL 1.02  do→0.101  wd→0.0101  val_every=200  vel=-0.00149  ✓ best
+Step   300/30000 | CE 0.0225 | PPL 1.02 | VQ 3.1464(β0.25,cc0.183) | MetaCB Act0.94 H2.11→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE2.924 Acc0.06 λ0.020 Bal0.006 | ChunkUp Act1.00 H0.77→0.43 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 5.28e-02(λ1.00e-01,ρ0.329) | GKL 0.509(γ0.0858) | SymD μ0.000 ↑n/a | Act 59.8%[38–88] | TopK-H 1.002/1.10(τ0.20) | α μ0.061[0.06–0.06](λ0.0044) | H 1.89→0.86 | BS 17x59(t1024) | Seen 0.3M(118.6x) | ∇ 0.33→0.60 | vel -0.0003 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 17.6k t/s | β2 0.9901 | LR 3.00e-04 | ⏱ 00:01:27 (+0.06s/step, ETA 00:28:17)
+  💾 Checkpoint saved (best val): neuro_symbolic_model_best.pt  (step 400)
+  ↑ seq_len_max unlocked → 128  (val CE improvement plateaued: 0.0013 < 0.005)
+  ↳ Val CE 0.0111  PPL 1.01  do→0.103  wd→0.0103  val_every=200  vel=-0.00011  ✓ best
+Step   440/30000 | CE 0.0200 | PPL 1.02 | VQ 1.0919(β0.29,cc0.169) | MetaCB Act0.75 H1.76→2.50 β0.15 cc0.151 TopKH1.08 | MetaPred CE2.846 Acc0.07 λ0.020 Bal0.012 | ChunkUp Act0.75 H0.45→0.44 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 5.77e-02(λ1.00e-01,ρ0.356) | GKL 0.494(γ0.1104) | SymD μ0.000 ↑n/a | Act 69.6%[50–94] | TopK-H 0.439/1.10(τ0.20) | α μ0.064[0.06–0.06](λ0.0041) | H 1.89→0.87 | BS 16x62(t1024) | Seen 0.4M(173.9x) | ∇ 0.60→1.09 | vel -0.0002 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 18.0k t/s | β2 0.9901 | LR 3.00e-04 | ⏱ 00:01:35 (+0.06s/step, ETA 00:27:09)
+Step   448/30000 | CE 0.0200 | PPL 1.02 | VQ 1.0314(β0.29,cc0.168) | MetaCB Act0.75 H1.77→2.50 β0.15 cc0.151 TopKH1.08 | MetaPred CE2.951 Acc0.07 λ0.020 Bal0.011 | ChunkUp Act0.75 H0.57→0.44 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 5.95e-02(λ1.00e-01,ρ0.361) | GKL 0.516(γ0.1120) | SymD μ0.000 ↑n/a | Act 68.8%[50–94] | TopK-H 0.416/1.10(τ0.20) | α μ0.064[0.06–0.06](λ0.0041) | H 1.90→0.87 | BS 16x62(t1024) | Seen 0.4M(177.0x) | ∇ 0.55→1.09 | vel -0.0001 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 18.9k t/s | β2 0.9901 | LR 3.00e-04 | ⏱ 00:01:36 (+0.05s/step, ETA 00:25:52)
+Step   600/30000 | CE 0.0151 | PPL 1.02 | VQ 0.7636(β0.30,cc0.154) | MetaCB Act0.69 H1.73→2.50 β0.16 cc0.156 TopKH1.08 | MetaPred CE3.041 Acc0.06 λ0.020 Bal0.017 | ChunkUp Act0.75 H0.43→0.45 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 6.15e-02(λ1.00e-01,ρ0.381) | GKL 0.496(γ0.1468) | SymD μ0.000 ↑n/a | Act 70.5%[50–88] | TopK-H 0.288/1.10(τ0.20) | α μ0.066[0.07–0.07](λ0.0038) | H 1.92→0.89 | BS 15x65(t1024) | Seen 0.6M(237.9x) | ∇ 0.65→0.91 | vel -0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 19.0k t/s | β2 0.9902 | LR 3.00e-04 | ⏱ 00:01:43 (+0.05s/step, ETA 00:25:08)
+  💾 Checkpoint saved (best val): neuro_symbolic_model_best.pt  (step 600)
+  ↑ seq_len_max unlocked → 256  (val CE improvement plateaued: 0.0013 < 0.005)
+  ↳ Val CE 0.0068  PPL 1.01  do→0.104  wd→0.0104  val_every=200  vel=-0.00004  ✓ best
+Step   700/30000 | CE 0.0098 | PPL 1.01 | VQ 0.6803(β0.31,cc0.150) | MetaCB Act0.62 H1.68→2.50 β0.16 cc0.162 TopKH1.08 | MetaPred CE3.076 Acc0.06 λ0.020 Bal0.017 | ChunkUp Act0.75 H0.46→0.45 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 6.12e-02(λ1.00e-01,ρ0.362) | GKL 0.550(γ0.1753) | SymD μ0.000 ↑n/a | Act 70.5%[50–88] | TopK-H 0.238/1.10(τ0.20) | α μ0.067[0.07–0.07](λ0.0037) | H 1.91→0.90 | BS 15x66(t1024) | Seen 0.7M(276.8x) | ∇ 0.21→0.49 | vel -0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 18.3k t/s | β2 0.9902 | LR 3.00e-04 | ⏱ 00:01:49 (+0.05s/step, ETA 00:26:26)
+  ↑ seq_len_max unlocked → 512  (val CE improvement plateaued: -0.0001 < 0.005)
+  ↳ Val CE 0.0070  PPL 1.01  do→0.104  wd→0.0104  val_every=200  vel=+0.00006
+  ↳ Val CE 0.0073  PPL 1.01  do→0.105  wd→0.0105  val_every=200  vel=+0.00000
+  💾 Checkpoint saved (best val): neuro_symbolic_model_best.pt  (step 1200)
+  ↳ Val CE 0.0064  PPL 1.01  do→0.104  wd→0.0104  val_every=200  vel=-0.00007  ✓ best
+  ⏳ step 1272/30000[00:02:19 elapsed]  still running…
+Step  1313/30000 | CE 0.0074 | PPL 1.01 | VQ 0.6768(β0.35,cc0.150) | MetaCB Act0.62 H1.79→2.50 β0.18 cc0.181 TopKH1.08 | MetaPred CE3.023 Acc0.06 λ0.020 Bal0.016 | ChunkUp Act1.00 H0.42→0.48 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 5.17e-02(λ1.00e-01,ρ0.285) | GKL 0.495(γ0.5000) | SymD μ0.000 ↑n/a | Act 65.2%[44–88] | TopK-H 0.263/1.10(τ0.19) | α μ0.072[0.07–0.07](λ0.0029) | H 1.83→0.96 | BS 14x71(t1024) | Seen 1.3M(517.6x) | ∇ 0.11→0.30 | vel +0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 19.0k t/s | β2 0.9904 | LR 3.00e-04 | ⏱ 00:02:21 (+0.05s/step, ETA 00:25:04)
+Step  1339/30000 | CE 0.0060 | PPL 1.01 | VQ 0.6699(β0.35,cc0.150) | MetaCB Act0.62 H1.79→2.50 β0.18 cc0.181 TopKH1.07 | MetaPred CE2.939 Acc0.05 λ0.020 Bal0.014 | ChunkUp Act1.00 H0.39→0.48 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 5.00e-02(λ1.00e-01,ρ0.282) | GKL 0.489(γ0.5000) | SymD μ0.000 ↑n/a | Act 65.2%[44–88] | TopK-H 0.263/1.10(τ0.19) | α μ0.073[0.07–0.07](λ0.0028) | H 1.84→0.96 | BS 14x71(t1024) | Seen 1.3M(527.8x) | ∇ 0.13→0.37 | vel -0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 19.0k t/s | β2 0.9904 | LR 3.00e-04 | ⏱ 00:02:22 (+0.05s/step, ETA 00:25:03)
+  💾 Checkpoint saved (best val): neuro_symbolic_model_best.pt  (step 1400)
+  ↳ Val CE 0.0062  PPL 1.01  do→0.104  wd→0.0104  val_every=200  vel=-0.00003  ✓ best
+Step  1500/30000 | CE 0.0049 | PPL 1.00 | VQ 0.6178(β0.40,cc0.150) | MetaCB Act0.75 H1.85→2.50 β0.18 cc0.177 TopKH1.08 | MetaPred CE2.916 Acc0.06 λ0.020 Bal0.011 | ChunkUp Act0.75 H0.42→0.49 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.93e-02(λ1.00e-01,ρ0.228) | GKL 0.500(γ0.5000) | SymD μ0.000 ↑n/a | Act 61.6%[38–81] | TopK-H 0.278/1.10(τ0.19) | α μ0.074[0.07–0.08](λ0.0027) | H 1.77→0.98 | BS 14x72(t1024) | Seen 1.5M(591.8x) | ∇ 0.10→0.30 | vel -0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 18.4k t/s | β2 0.9905 | LR 3.00e-04 | ⏱ 00:02:31 (+0.05s/step, ETA 00:26:01)
+  Gates: Bri=0.14 Dis=0.14 Foc=0.13 Col=0.15 Per=0.11 Siz=0.17 Pos=0.16
+  TopK-H/stream: Bri=0.28 Dis=0.28 Foc=0.28 Col=0.27 Per=0.28 Siz=0.27 Pos=0.29
+Step  1530/30000 | CE 0.0033 | PPL 1.00 | VQ 0.6049(β0.41,cc0.150) | MetaCB Act0.69 H1.84→2.50 β0.18 cc0.175 TopKH1.08 | MetaPred CE2.975 Acc0.05 λ0.020 Bal0.011 | ChunkUp Act1.00 H0.42→0.49 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.68e-02(λ1.00e-01,ρ0.214) | GKL 0.503(γ0.5000) | SymD μ0.000 ↑n/a | Act 60.7%[31–81] | TopK-H 0.284/1.10(τ0.19) | α μ0.075[0.07–0.08](λ0.0026) | H 1.76→0.98 | BS 14x72(t1024) | Seen 1.5M(603.7x) | ∇ 0.13→0.33 | vel -0.0001 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 19.4k t/s | β2 0.9905 | LR 3.00e-04 | ⏱ 00:02:33 (+0.05s/step, ETA 00:24:42)
+  Gates: Bri=0.16 Dis=0.11 Foc=0.14 Col=0.16 Per=0.14 Siz=0.14 Pos=0.15
+  TopK-H/stream: Bri=0.29 Dis=0.28 Foc=0.29 Col=0.26 Per=0.28 Siz=0.28 Pos=0.29
+Step  1560/30000 | CE 0.0077 | PPL 1.01 | VQ 0.5962(β0.42,cc0.150) | MetaCB Act0.81 H1.86→2.50 β0.17 cc0.173 TopKH1.08 | MetaPred CE3.051 Acc0.06 λ0.020 Bal0.019 | ChunkUp Act1.00 H0.49→0.49 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.46e-02(λ1.00e-01,ρ0.201) | GKL 0.480(γ0.5000) | SymD μ0.000 ↑n/a | Act 60.7%[31–81] | TopK-H 0.290/1.10(τ0.19) | α μ0.075[0.07–0.08](λ0.0026) | H 1.75→0.98 | BS 14x72(t1024) | Seen 1.6M(615.7x) | ∇ 0.09→0.30 | vel +0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 19.0k t/s | β2 0.9905 | LR 3.00e-04 | ⏱ 00:02:34 (+0.05s/step, ETA 00:25:08)
+  Gates: Bri=0.16 Dis=0.12 Foc=0.14 Col=0.16 Per=0.17 Siz=0.14 Pos=0.12
+  TopK-H/stream: Bri=0.30 Dis=0.28 Foc=0.30 Col=0.27 Per=0.29 Siz=0.29 Pos=0.30
+  💾 Checkpoint saved (best val): neuro_symbolic_model_best.pt  (step 1600)
+  ↳ Val CE 0.0050  PPL 1.00  do→0.103  wd→0.0103  val_every=200  vel=-0.00008  ✓ best
+Step  1764/30000 | CE 0.0077 | PPL 1.01 | VQ 0.5417(β0.50,cc0.154) | MetaCB Act0.81 H1.91→2.50 β0.16 cc0.158 TopKH1.08 | MetaPred CE3.057 Acc0.08 λ0.020 Bal0.016 | ChunkUp Act0.75 H0.52→0.50 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 2.39e-02(λ1.00e-01,ρ0.152) | GKL 0.447(γ0.5000) | SymD μ0.000 ↑n/a | Act 50.0%[31–69] | TopK-H 0.307/1.10(τ0.19) | α μ0.078[0.08–0.08](λ0.0024) | H 1.67→1.00 | BS 14x73(t1024) | Seen 1.8M(698.2x) | ∇ 0.13→0.35 | vel +0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 18.8k t/s | β2 0.9905 | LR 3.00e-04 | ⏱ 00:02:45 (+0.05s/step, ETA 00:25:34)
+Step  1792/30000 | CE 0.0085 | PPL 1.01 | VQ 0.5255(β0.50,cc0.157) | MetaCB Act0.81 H1.90→2.50 β0.16 cc0.156 TopKH1.08 | MetaPred CE3.020 Acc0.09 λ0.020 Bal0.016 | ChunkUp Act1.00 H0.49→0.50 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 2.18e-02(λ1.00e-01,ρ0.143) | GKL 0.459(γ0.5000) | SymD μ0.000 ↑n/a | Act 50.9%[31–69] | TopK-H 0.307/1.10(τ0.19) | α μ0.078[0.08–0.08](λ0.0024) | H 1.66→1.01 | BS 14x73(t1024) | Seen 1.8M(709.5x) | ∇ 0.12→0.35 | vel +0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 19.5k t/s | β2 0.9905 | LR 3.00e-04 | ⏱ 00:02:47 (+0.05s/step, ETA 00:24:35)
+  ↳ Val CE 0.0059  PPL 1.01  do→0.103  wd→0.0103  val_every=200  vel=+0.00001
+Step  1820/30000 | CE 0.0058 | PPL 1.01 | VQ 0.5184(β0.50,cc0.158) | MetaCB Act0.69 H1.89→2.50 β0.15 cc0.154 TopKH1.08 | MetaPred CE3.004 Acc0.09 λ0.020 Bal0.016 | ChunkUp Act1.00 H0.56→0.51 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 2.14e-02(λ1.00e-01,ρ0.138) | GKL 0.492(γ0.5000) | SymD μ0.000 ↑n/a | Act 52.7%[31–69] | TopK-H 0.306/1.10(τ0.19) | α μ0.078[0.08–0.08](λ0.0024) | H 1.68→1.01 | BS 13x74(t1024) | Seen 1.8M(720.6x) | ∇ 0.09→0.36 | vel -0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.2G | Thr 15.8k t/s | β2 0.9905 | LR 3.00e-04 | ⏱ 00:02:49 (+0.06s/step, ETA 00:28:32)
+  ↓ LR  3.00e-04 → 2.97e-04  (patience #1, stalled 400 steps)
+  ↑ batch_tokens → 2048
+Step  1938/30000 | CE 0.0069 | PPL 1.01 | VQ 0.5071(β0.50,cc0.171) | MetaCB Act0.88 H1.95→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.078 Acc0.09 λ0.020 Bal0.016 | ChunkUp Act1.00 H0.58→0.55 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 1.70e-02(λ1.00e-01,ρ0.122) | GKL 0.495(γ0.5000) | SymD μ0.000 ↑n/a | Act 50.9%[31–69] | TopK-H 0.313/1.10(τ0.19) | α μ0.079[0.08–0.08](λ0.0023) | H 1.66→1.09 | BS 27x74(t2048) | Seen 2.0M(781.2x) | ∇ 0.10→0.35 | vel -0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.3G | Thr 37.8k t/s | β2 0.9906 | LR 2.97e-04 | ⏱ 00:02:55 (+0.05s/step, ETA 00:24:42)
+  💾 Checkpoint saved (best val): neuro_symbolic_model_best.pt  (step 2000)
+  ↳ Val CE 0.0047  PPL 1.00  do→0.103  wd→0.0103  val_every=200  vel=-0.00004  ✓ best
+Step  2052/30000 | CE 0.0116 | PPL 1.01 | VQ 0.4434(β0.50,cc0.186) | MetaCB Act0.94 H1.93→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.041 Acc0.08 λ0.020 Bal0.012 | ChunkUp Act1.00 H0.57→0.55 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 1.11e-02(λ1.00e-01,ρ0.090) | GKL 0.464(γ0.5000) | SymD μ0.000 ↑n/a | Act 50.0%[31–56] | TopK-H 0.326/1.10(τ0.19) | α μ0.080[0.08–0.08](λ0.0022) | H 1.63→1.10 | BS 27x75(t2048) | Seen 2.2M(871.5x) | ∇ 0.59→0.30 | vel +0.0001 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.3G | Thr 36.9k t/s | β2 0.9906 | LR 2.97e-04 | ⏱ 00:03:01 (+0.05s/step, ETA 00:25:33)
+  ↳ Val CE 0.0051  PPL 1.01  do→0.104  wd→0.0104  val_every=200  vel=+0.00004
+Step  2210/30000 | CE 0.0055 | PPL 1.01 | VQ 0.4003(β0.50,cc0.216) | MetaCB Act0.94 H1.95→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.078 Acc0.08 λ0.020 Bal0.015 | ChunkUp Act1.00 H0.64→0.56 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 8.33e-03(λ9.80e-02,ρ0.064) | GKL 0.454(γ0.5000) | SymD μ0.000 ↑n/a | Act 52.7%[44–69] | TopK-H 0.325/1.10(τ0.19) | α μ0.082[0.08–0.08](λ0.0021) | H 1.63→1.12 | BS 27x75(t2048) | Seen 2.5M(998.3x) | ∇ 0.05→0.30 | vel -0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.3G | Thr 38.6k t/s | β2 0.9907 | LR 2.97e-04 | ⏱ 00:03:09 (+0.05s/step, ETA 00:24:16)
+  ↓ LR  2.97e-04 → 2.94e-04  (patience #2, stalled 500 steps)
+  ↑ batch_tokens → 4096
+  💾 Checkpoint saved (best val): neuro_symbolic_model_best.pt  (step 2400)
+  ↳ Val CE 0.0045  PPL 1.00  do→0.106  wd→0.0106  val_every=200  vel=+0.00013  ✓ best
+Step  2496/30000 | CE 0.0040 | PPL 1.00 | VQ 0.3429(β0.50,cc0.292) | MetaCB Act0.94 H1.99→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE2.955 Acc0.10 λ0.020 Bal0.012 | ChunkUp Act1.00 H0.61→0.61 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 4.85e-03(λ8.50e-02,ρ0.039) | GKL 0.483(γ0.5000) | SymD μ0.000 ↑n/a | Act 55.4%[50–62] | TopK-H 0.316/1.10(τ0.19) | α μ0.084[0.08–0.09](λ0.0019) | H 1.64→1.22 | BS 53x76(t4096) | Seen 3.3M(1302.5x) | ∇ 0.04→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 74.6k t/s | β2 0.9907 | LR 2.94e-04 | ⏱ 00:03:25 (+0.05s/step, ETA 00:24:44)
+Step  2600/30000 | CE 0.0053 | PPL 1.01 | VQ 0.3241(β0.50,cc0.326) | MetaCB Act0.94 H1.98→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE2.961 Acc0.09 λ0.020 Bal0.014 | ChunkUp Act1.00 H0.60→0.62 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.97e-03(λ7.82e-02,ρ0.029) | GKL 0.459(γ0.5000) | SymD μ0.000 ↑n/a | Act 57.1%[50–69] | TopK-H 0.316/1.10(τ0.19) | α μ0.085[0.08–0.09](λ0.0018) | H 1.67→1.24 | BS 53x76(t4096) | Seen 3.7M(1468.5x) | ∇ 0.11→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 76.4k t/s | β2 0.9908 | LR 2.94e-04 | ⏱ 00:03:30 (+0.05s/step, ETA 00:24:05)
+  ↳ Val CE 0.0047  PPL 1.00  do→0.105  wd→0.0105  val_every=200  vel=-0.00002
+Step  2650/30000 | CE 0.0056 | PPL 1.01 | VQ 0.3187(β0.50,cc0.343) | MetaCB Act0.94 H1.97→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE2.951 Acc0.09 λ0.020 Bal0.009 | ChunkUp Act1.00 H0.60→0.62 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.71e-03(λ7.50e-02,ρ0.025) | GKL 0.468(γ0.5000) | SymD μ0.000 ↑n/a | Act 57.1%[50–69] | TopK-H 0.319/1.10(τ0.19) | α μ0.085[0.08–0.09](λ0.0018) | H 1.65→1.24 | BS 53x77(t4096) | Seen 3.9M(1548.8x) | ∇ 0.03→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 71.4k t/s | β2 0.9908 | LR 2.94e-04 | ⏱ 00:03:33 (+0.06s/step, ETA 00:26:04)
+  Gates: Bri=0.15 Dis=0.14 Foc=0.14 Col=0.15 Per=0.14 Siz=0.15 Pos=0.13
+  TopK-H/stream: Bri=0.40 Dis=0.25 Foc=0.42 Col=0.28 Per=0.25 Siz=0.27 Pos=0.36
+Step  2704/30000 | CE 0.0066 | PPL 1.01 | VQ 0.2978(β0.50,cc0.361) | MetaCB Act0.94 H1.98→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.031 Acc0.09 λ0.020 Bal0.006 | ChunkUp Act1.00 H0.58→0.62 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.09e-03(λ7.15e-02,ρ0.022) | GKL 0.465(γ0.5000) | SymD μ0.000 ↑n/a | Act 58.9%[50–69] | TopK-H 0.315/1.10(τ0.19) | α μ0.086[0.08–0.09](λ0.0018) | H 1.66→1.25 | BS 53x77(t4096) | Seen 4.1M(1636.2x) | ∇ 0.12→0.30 | vel +0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 79.6k t/s | β2 0.9908 | LR 2.94e-04 | ⏱ 00:03:36 (+0.05s/step, ETA 00:23:19)
+Step  2800/30000 | CE 0.0065 | PPL 1.01 | VQ 0.2879(β0.50,cc0.393) | MetaCB Act0.88 H1.97→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE2.992 Acc0.09 λ0.020 Bal0.011 | ChunkUp Act1.00 H0.58→0.63 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 2.74e-03(λ6.56e-02,ρ0.017) | GKL 0.466(γ0.5000) | SymD μ0.000 ↑n/a | Act 60.7%[50–75] | TopK-H 0.315/1.10(τ0.19) | α μ0.086[0.08–0.09](λ0.0017) | H 1.68→1.26 | BS 53x77(t4096) | Seen 4.5M(1791.4x) | ∇ 0.13→0.30 | vel +0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 77.7k t/s | β2 0.9908 | LR 2.94e-04 | ⏱ 00:03:41 (+0.05s/step, ETA 00:23:48)
+  Gates: Bri=0.15 Dis=0.15 Foc=0.14 Col=0.13 Per=0.14 Siz=0.15 Pos=0.14
+  TopK-H/stream: Bri=0.40 Dis=0.24 Foc=0.42 Col=0.28 Per=0.24 Siz=0.27 Pos=0.36
+  ↳ Val CE 0.0055  PPL 1.01  do→0.105  wd→0.0105  val_every=200  vel=+0.00001
+Step  2880/30000 | CE 0.0042 | PPL 1.00 | VQ 0.2976(β0.50,cc0.426) | MetaCB Act0.94 H1.96→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.061 Acc0.09 λ0.020 Bal0.010 | ChunkUp Act1.00 H0.57→0.63 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 2.93e-03(λ6.10e-02,ρ0.019) | GKL 0.462(γ0.5000) | SymD μ0.000 ↑n/a | Act 58.9%[50–69] | TopK-H 0.321/1.10(τ0.19) | α μ0.087[0.09–0.09](λ0.0017) | H 1.68→1.27 | BS 53x77(t4096) | Seen 4.8M(1920.8x) | ∇ 0.12→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 72.8k t/s | β2 0.9909 | LR 2.94e-04 | ⏱ 00:03:45 (+0.06s/step, ETA 00:25:20)
+Step  2987/30000 | CE 0.0088 | PPL 1.01 | VQ 0.2629(β0.50,cc0.478) | MetaCB Act0.94 H1.97→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.027 Acc0.08 λ0.020 Bal0.009 | ChunkUp Act1.00 H0.57→0.64 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 2.31e-03(λ5.52e-02,ρ0.014) | GKL 0.451(γ0.5000) | SymD μ0.000 ↑n/a | Act 57.1%[50–62] | TopK-H 0.322/1.10(τ0.19) | α μ0.087[0.09–0.09](λ0.0016) | H 1.65→1.28 | BS 52x78(t4096) | Seen 5.3M(2093.8x) | ∇ 0.22→0.30 | vel +0.0001 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 77.6k t/s | β2 0.9909 | LR 2.94e-04 | ⏱ 00:03:51 (+0.05s/step, ETA 00:23:31)
+  ↳ Val CE 0.0050  PPL 1.01  do→0.106  wd→0.0106  val_every=200  vel=+0.00002
+Step  3052/30000 | CE 0.0038 | PPL 1.00 | VQ 0.2726(β0.50,cc0.500) | MetaCB Act0.94 H1.96→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.025 Acc0.08 λ0.020 Bal0.006 | ChunkUp Act1.00 H0.58→0.64 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 2.39e-03(λ5.21e-02,ρ0.017) | GKL 0.462(γ0.5000) | SymD μ0.000 ↑n/a | Act 56.2%[50–69] | TopK-H 0.325/1.10(τ0.19) | α μ0.088[0.09–0.09](λ0.0016) | H 1.63→1.29 | BS 52x78(t4096) | Seen 5.5M(2198.3x) | ∇ 0.04→0.30 | vel -0.0001 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 70.0k t/s | β2 0.9909 | LR 2.94e-04 | ⏱ 00:03:55 (+0.06s/step, ETA 00:26:01)
+Step  3105/30000 | CE 0.0077 | PPL 1.01 | VQ 0.2601(β0.50,cc0.500) | MetaCB Act0.94 H1.98→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.053 Acc0.08 λ0.020 Bal0.012 | ChunkUp Act1.00 H0.57→0.65 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 2.01e-03(λ4.96e-02,ρ0.015) | GKL 0.462(γ0.5000) | SymD μ0.000 ↑n/a | Act 55.4%[44–62] | TopK-H 0.322/1.10(τ0.19) | α μ0.088[0.09–0.09](λ0.0016) | H 1.64→1.29 | BS 52x78(t4096) | Seen 5.8M(2283.5x) | ∇ 0.08→0.30 | vel +0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 75.5k t/s | β2 0.9909 | LR 2.94e-04 | ⏱ 00:03:58 (+0.05s/step, ETA 00:24:04)
+Step  3193/30000 | CE 0.0065 | PPL 1.01 | VQ 0.2330(β0.50,cc0.500) | MetaCB Act0.94 H1.97→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.098 Acc0.08 λ0.020 Bal0.007 | ChunkUp Act1.00 H0.56→0.65 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 1.62e-03(λ4.54e-02,ρ0.008) | GKL 0.465(γ0.5000) | SymD μ0.000 ↑n/a | Act 59.8%[50–69] | TopK-H 0.318/1.10(τ0.19) | α μ0.089[0.09–0.09](λ0.0015) | H 1.65→1.30 | BS 52x78(t4096) | Seen 6.1M(2425.0x) | ∇ 0.06→0.30 | vel +0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 77.3k t/s | β2 0.9910 | LR 2.94e-04 | ⏱ 00:04:02 (+0.05s/step, ETA 00:23:26)
+  ↳ Val CE 0.0053  PPL 1.01  do→0.106  wd→0.0106  val_every=200  vel=+0.00002
+Step  3255/30000 | CE 0.0076 | PPL 1.01 | VQ 0.2289(β0.50,cc0.500) | MetaCB Act0.94 H1.98→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.117 Acc0.08 λ0.020 Bal0.008 | ChunkUp Act1.00 H0.58→0.65 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 1.64e-03(λ4.27e-02,ρ0.006) | GKL 0.433(γ0.5000) | SymD μ0.000 ↑n/a | Act 58.9%[44–69] | TopK-H 0.317/1.10(τ0.19) | α μ0.089[0.09–0.09](λ0.0015) | H 1.65→1.31 | BS 52x78(t4096) | Seen 6.4M(2524.7x) | ∇ 0.08→0.30 | vel +0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 97.6k t/s | β2 0.9910 | LR 2.94e-04 | ⏱ 00:04:05 (+0.04s/step, ETA 00:18:31)
+  ↳ Val CE 0.0051  PPL 1.01  do→0.106  wd→0.0106  val_every=200  vel=+0.00002
+Step  3483/30000 | CE 0.0052 | PPL 1.01 | VQ 0.2143(β0.50,cc0.500) | MetaCB Act0.88 H1.93→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.023 Acc0.08 λ0.020 Bal0.006 | ChunkUp Act1.00 H0.58→0.67 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 1.41e-03(λ3.43e-02,ρ0.003) | GKL 0.458(γ0.5000) | SymD μ0.000 ↑n/a | Act 58.9%[50–75] | TopK-H 0.318/1.10(τ0.18) | α μ0.090[0.09–0.09](λ0.0014) | H 1.68→1.34 | BS 51x79(t4096) | Seen 7.3M(2890.1x) | ∇ 0.04→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 106.1k t/s | β2 0.9910 | LR 2.94e-04 | ⏱ 00:04:13 (+0.04s/step, ETA 00:16:47)
+Step  3562/30000 | CE 0.0069 | PPL 1.01 | VQ 0.2140(β0.50,cc0.500) | MetaCB Act0.94 H1.95→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.053 Acc0.08 λ0.020 Bal0.012 | ChunkUp Act1.00 H0.61→0.67 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 1.59e-03(λ3.18e-02,ρ0.004) | GKL 0.458(γ0.5000) | SymD μ0.000 ↑n/a | Act 58.9%[50–75] | TopK-H 0.320/1.10(τ0.18) | α μ0.090[0.09–0.09](λ0.0014) | H 1.70→1.34 | BS 51x79(t4096) | Seen 7.6M(3016.2x) | ∇ 0.04→0.30 | vel +0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 109.3k t/s | β2 0.9911 | LR 2.94e-04 | ⏱ 00:04:16 (+0.04s/step, ETA 00:16:14)
+  ↳ Val CE 0.0049  PPL 1.00  do→0.106  wd→0.0106  val_every=200  vel=-0.00002
+Step  3675/30000 | CE 0.0061 | PPL 1.01 | VQ 0.1911(β0.50,cc0.500) | MetaCB Act0.94 H1.93→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.107 Acc0.08 λ0.020 Bal0.005 | ChunkUp Act1.00 H0.58→0.68 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 1.18e-03(λ2.85e-02,ρ-0.000) | GKL 0.441(γ0.5000) | SymD μ0.000 ↑n/a | Act 60.7%[50–75] | TopK-H 0.317/1.10(τ0.18) | α μ0.090[0.09–0.09](λ0.0013) | H 1.69→1.36 | BS 51x79(t4096) | Seen 8.1M(3196.7x) | ∇ 0.10→0.30 | vel +0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 104.5k t/s | β2 0.9911 | LR 2.94e-04 | ⏱ 00:04:21 (+0.04s/step, ETA 00:16:54)
+  Gates: Bri=0.15 Dis=0.16 Foc=0.14 Col=0.14 Per=0.14 Siz=0.13 Pos=0.14
+  TopK-H/stream: Bri=0.36 Dis=0.26 Foc=0.38 Col=0.29 Per=0.31 Siz=0.27 Pos=0.35
+Step  3750/30000 | CE 0.0054 | PPL 1.01 | VQ 0.1951(β0.50,cc0.500) | MetaCB Act0.94 H1.96→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.029 Acc0.08 λ0.020 Bal0.011 | ChunkUp Act1.00 H0.62→0.68 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 1.15e-03(λ2.65e-02,ρ-0.001) | GKL 0.439(γ0.5000) | SymD μ0.000 ↑n/a | Act 63.4%[50–75] | TopK-H 0.319/1.10(τ0.18) | α μ0.091[0.09–0.09](λ0.0013) | H 1.71→1.37 | BS 51x79(t4096) | Seen 8.4M(3316.4x) | ∇ 0.09→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 108.6k t/s | β2 0.9911 | LR 2.94e-04 | ⏱ 00:04:24 (+0.04s/step, ETA 00:16:13)
+  Gates: Bri=0.15 Dis=0.15 Foc=0.16 Col=0.13 Per=0.13 Siz=0.14 Pos=0.14
+  TopK-H/stream: Bri=0.36 Dis=0.27 Foc=0.38 Col=0.29 Per=0.31 Siz=0.27 Pos=0.35
+  ↓ LR  2.94e-04 → 2.91e-04  (patience #3, stalled 615 steps)
+  ↑ batch_tokens → 4096
+  ↳ Val CE 0.0052  PPL 1.01  do→0.106  wd→0.0106  val_every=200  vel=+0.00003
+Step  3848/30000 | CE 0.0072 | PPL 1.01 | VQ 0.1881(β0.50,cc0.500) | MetaCB Act0.94 H1.92→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.125 Acc0.08 λ0.020 Bal0.007 | ChunkUp Act1.00 H0.55→0.69 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 1.02e-03(λ2.41e-02,ρ-0.001) | GKL 0.453(γ0.5000) | SymD μ0.000 ↑n/a | Act 58.9%[50–69] | TopK-H 0.320/1.10(τ0.18) | α μ0.091[0.09–0.09](λ0.0012) | H 1.68→1.38 | BS 51x80(t4096) | Seen 8.8M(3473.4x) | ∇ 0.04→0.30 | vel +0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 104.8k t/s | β2 0.9912 | LR 2.91e-04 | ⏱ 00:04:27 (+0.04s/step, ETA 00:16:58)
+Step  3888/30000 | CE 0.0044 | PPL 1.00 | VQ 0.1896(β0.50,cc0.500) | MetaCB Act0.94 H1.92→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.117 Acc0.07 λ0.020 Bal0.007 | ChunkUp Act1.00 H0.54→0.69 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 1.11e-03(λ2.33e-02,ρ-0.001) | GKL 0.452(γ0.5000) | SymD μ0.000 ↑n/a | Act 64.3%[56–75] | TopK-H 0.321/1.10(τ0.18) | α μ0.091[0.09–0.10](λ0.0012) | H 1.71→1.38 | BS 51x80(t4096) | Seen 8.9M(3538.1x) | ∇ 0.03→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 109.4k t/s | β2 0.9912 | LR 2.91e-04 | ⏱ 00:04:29 (+0.04s/step, ETA 00:16:13)
+  ↳ Val CE 0.0046  PPL 1.00  do→0.105  wd→0.0105  val_every=200  vel=-0.00003
+Step  4026/30000 | CE 0.0199 | PPL 1.02 | VQ 0.1722(β0.50,cc0.500) | MetaCB Act0.94 H1.93→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE2.973 Acc0.09 λ0.020 Bal0.010 | ChunkUp Act1.00 H0.56→0.70 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 7.79e-04(λ2.03e-02,ρ-0.003) | GKL 0.437(γ0.5000) | SymD μ0.000 ↑n/a | Act 64.3%[56–75] | TopK-H 0.323/1.10(τ0.18) | α μ0.091[0.09–0.10](λ0.0012) | H 1.72→1.40 | BS 51x80(t4096) | Seen 9.5M(3761.2x) | ∇ 0.35→0.30 | vel +0.0003 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 107.0k t/s | β2 0.9912 | LR 2.91e-04 | ⏱ 00:04:34 (+0.04s/step, ETA 00:16:30)
+Step  4096/30000 | CE 0.0052 | PPL 1.01 | VQ 0.1731(β0.50,cc0.500) | MetaCB Act0.94 H1.92→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.035 Acc0.07 λ0.020 Bal0.009 | ChunkUp Act1.00 H0.53→0.70 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 7.76e-04(λ1.90e-02,ρ-0.004) | GKL 0.431(γ0.5000) | SymD μ0.000 ↑n/a | Act 62.5%[56–75] | TopK-H 0.325/1.10(τ0.18) | α μ0.091[0.09–0.10](λ0.0012) | H 1.72→1.40 | BS 51x80(t4096) | Seen 9.8M(3874.4x) | ∇ 0.04→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 110.0k t/s | β2 0.9912 | LR 2.91e-04 | ⏱ 00:04:37 (+0.04s/step, ETA 00:16:00)
+Step  4154/30000 | CE 0.0070 | PPL 1.01 | VQ 0.1792(β0.50,cc0.500) | MetaCB Act0.88 H1.92→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.021 Acc0.09 λ0.020 Bal0.008 | ChunkUp Act1.00 H0.55→0.71 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 8.77e-04(λ1.80e-02,ρ-0.003) | GKL 0.450(γ0.5000) | SymD μ0.000 ↑n/a | Act 65.2%[56–75] | TopK-H 0.328/1.10(τ0.18) | α μ0.091[0.09–0.10](λ0.0011) | H 1.73→1.41 | BS 51x80(t4096) | Seen 10.0M(3968.2x) | ∇ 0.10→0.30 | vel +0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 110.1k t/s | β2 0.9912 | LR 2.91e-04 | ⏱ 00:04:39 (+0.04s/step, ETA 00:15:57)
+  ↳ Val CE 0.0049  PPL 1.00  do→0.105  wd→0.0105  val_every=200  vel=-0.00003
+Step  4292/30000 | CE 0.0072 | PPL 1.01 | VQ 0.1671(β0.50,cc0.500) | MetaCB Act0.94 H1.91→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.055 Acc0.08 λ0.020 Bal0.008 | ChunkUp Act1.00 H0.58→0.71 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 6.99e-04(λ1.59e-02,ρ-0.004) | GKL 0.438(γ0.5000) | SymD μ0.000 ↑n/a | Act 67.0%[56–81] | TopK-H 0.331/1.10(τ0.18) | α μ0.092[0.09–0.10](λ0.0011) | H 1.73→1.43 | BS 51x80(t4096) | Seen 10.6M(4191.4x) | ∇ 0.05→0.30 | vel +0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 107.0k t/s | β2 0.9913 | LR 2.91e-04 | ⏱ 00:04:44 (+0.04s/step, ETA 00:16:19)
+Step  4350/30000 | CE 0.0059 | PPL 1.01 | VQ 0.1612(β0.50,cc0.500) | MetaCB Act0.94 H1.91→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.061 Acc0.07 λ0.020 Bal0.009 | ChunkUp Act1.00 H0.54→0.72 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 6.31e-04(λ1.50e-02,ρ-0.005) | GKL 0.439(γ0.5000) | SymD μ0.000 ↑n/a | Act 67.9%[56–81] | TopK-H 0.332/1.10(τ0.18) | α μ0.092[0.09–0.10](λ0.0011) | H 1.73→1.43 | BS 50x81(t4096) | Seen 10.8M(4285.0x) | ∇ 0.04→0.30 | vel +0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 109.7k t/s | β2 0.9913 | LR 2.91e-04 | ⏱ 00:04:46 (+0.04s/step, ETA 00:15:46)
+Step  4386/30000 | CE 0.0037 | PPL 1.00 | VQ 0.1637(β0.50,cc0.497) | MetaCB Act0.94 H1.93→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.057 Acc0.07 λ0.020 Bal0.007 | ChunkUp Act1.00 H0.59→0.72 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 6.58e-04(λ1.45e-02,ρ-0.005) | GKL 0.437(γ0.5000) | SymD μ0.000 ↑n/a | Act 66.1%[56–81] | TopK-H 0.335/1.10(τ0.18) | α μ0.092[0.09–0.10](λ0.0011) | H 1.74→1.44 | BS 50x81(t4096) | Seen 11.0M(4342.8x) | ∇ 0.03→0.30 | vel -0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 109.4k t/s | β2 0.9913 | LR 2.91e-04 | ⏱ 00:04:48 (+0.04s/step, ETA 00:15:48)
+  💾 Checkpoint saved (best val): neuro_symbolic_model_best.pt  (step 4400)
+  ↳ Val CE 0.0042  PPL 1.00  do→0.105  wd→0.0105  val_every=200  vel=-0.00000  ✓ best
+Step  4524/30000 | CE 0.0045 | PPL 1.00 | VQ 0.1582(β0.50,cc0.500) | MetaCB Act0.94 H1.97→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.039 Acc0.09 λ0.020 Bal0.011 | ChunkUp Act1.00 H0.59→0.73 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 6.58e-04(λ1.29e-02,ρ-0.004) | GKL 0.442(γ0.5000) | SymD μ0.000 ↑n/a | Act 67.9%[56–88] | TopK-H 0.341/1.10(τ0.18) | α μ0.092[0.09–0.10](λ0.0010) | H 1.76→1.45 | BS 50x81(t4096) | Seen 11.5M(4564.3x) | ∇ 0.02→0.30 | vel -0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 104.8k t/s | β2 0.9914 | LR 2.91e-04 | ⏱ 00:04:53 (+0.04s/step, ETA 00:16:24)
+  ↳ Val CE 0.0045  PPL 1.00  do→0.105  wd→0.0105  val_every=200  vel=+0.00001
+Step  4680/30000 | CE 0.0047 | PPL 1.00 | VQ 0.1467(β0.50,cc0.500) | MetaCB Act0.94 H1.96→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.051 Acc0.08 λ0.020 Bal0.008 | ChunkUp Act1.00 H0.58→0.73 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 5.67e-04(λ1.12e-02,ρ-0.006) | GKL 0.426(γ0.5000) | SymD μ0.000 ↑n/a | Act 70.5%[56–88] | TopK-H 0.343/1.10(τ0.18) | α μ0.092[0.09–0.10](λ0.0010) | H 1.78→1.47 | BS 50x81(t4096) | Seen 12.1M(4814.7x) | ∇ 0.05→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 100.8k t/s | β2 0.9914 | LR 2.91e-04 | ⏱ 00:04:59 (+0.04s/step, ETA 00:16:56)
+Step  4738/30000 | CE 0.0052 | PPL 1.01 | VQ 0.1412(β0.50,cc0.500) | MetaCB Act0.94 H1.97→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.066 Acc0.08 λ0.020 Bal0.006 | ChunkUp Act1.00 H0.54→0.74 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 5.09e-04(λ1.07e-02,ρ-0.006) | GKL 0.441(γ0.5000) | SymD μ0.000 ↑n/a | Act 71.4%[56–94] | TopK-H 0.342/1.10(τ0.18) | α μ0.092[0.09–0.10](λ0.0010) | H 1.77→1.47 | BS 50x81(t4096) | Seen 12.4M(4907.8x) | ∇ 0.03→0.30 | vel +0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 78.2k t/s | β2 0.9914 | LR 2.91e-04 | ⏱ 00:05:02 (+0.05s/step, ETA 00:21:47)
+  ↳ Val CE 0.0043  PPL 1.00  do→0.105  wd→0.0105  val_every=200  vel=+0.00002
+Step  4945/30000 | CE 0.0035 | PPL 1.00 | VQ 0.1306(β0.50,cc0.500) | MetaCB Act0.94 H1.96→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.092 Acc0.07 λ0.020 Bal0.007 | ChunkUp Act1.00 H0.56→0.75 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 4.06e-04(λ8.83e-03,ρ-0.007) | GKL 0.429(γ0.5000) | SymD μ0.000 ↑n/a | Act 71.4%[56–88] | TopK-H 0.351/1.10(τ0.18) | α μ0.091[0.08–0.10](λ0.0010) | H 1.79→1.50 | BS 49x82(t4096) | Seen 13.2M(5239.7x) | ∇ 0.02→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 89.6k t/s | β2 0.9915 | LR 2.91e-04 | ⏱ 00:05:11 (+0.04s/step, ETA 00:18:44)
+  ↳ Val CE 0.0049  PPL 1.00  do→0.105  wd→0.0105  val_every=200  vel=-0.00004
+Step  5047/30000 | CE 0.0038 | PPL 1.00 | VQ 0.1251(β0.50,cc0.499) | MetaCB Act0.94 H1.96→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.047 Acc0.08 λ0.020 Bal0.008 | ChunkUp Act1.00 H0.57→0.75 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.74e-04(λ8.04e-03,ρ-0.008) | GKL 0.437(γ0.5000) | SymD μ0.000 ↑n/a | Act 70.5%[56–94] | TopK-H 0.354/1.10(τ0.18) | α μ0.090[0.08–0.10](λ0.0010) | H 1.79→1.51 | BS 49x82(t4096) | Seen 13.6M(5402.2x) | ∇ 0.02→0.30 | vel -0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 92.6k t/s | β2 0.9915 | LR 2.91e-04 | ⏱ 00:05:16 (+0.04s/step, ETA 00:18:02)
+Step  5175/30000 | CE 0.0070 | PPL 1.01 | VQ 0.1260(β0.50,cc0.500) | MetaCB Act0.94 H1.97→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.053 Acc0.07 λ0.020 Bal0.006 | ChunkUp Act1.00 H0.59→0.76 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.88e-04(λ7.23e-03,ρ-0.007) | GKL 0.427(γ0.5000) | SymD μ0.000 ↑n/a | Act 70.5%[56–88] | TopK-H 0.364/1.10(τ0.18) | α μ0.090[0.08–0.10](λ0.0010) | H 1.76→1.52 | BS 49x82(t4096) | Seen 14.1M(5606.0x) | ∇ 0.06→0.30 | vel +0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 75.5k t/s | β2 0.9916 | LR 2.91e-04 | ⏱ 00:05:23 (+0.05s/step, ETA 00:22:00)
+  Gates: Bri=0.12 Dis=0.14 Foc=0.14 Col=0.14 Per=0.17 Siz=0.15 Pos=0.15
+  TopK-H/stream: Bri=0.38 Dis=0.38 Foc=0.40 Col=0.33 Per=0.36 Siz=0.31 Pos=0.38
+  ↳ Val CE 0.0049  PPL 1.00  do→0.104  wd→0.0104  val_every=200  vel=-0.00003
+  ↳ Val CE 0.0045  PPL 1.00  do→0.104  wd→0.0104  val_every=200  vel=-0.00003
+Step  5513/30000 | CE 0.0070 | PPL 1.01 | VQ 0.1223(β0.49,cc0.500) | MetaCB Act0.94 H1.96→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.135 Acc0.07 λ0.020 Bal0.008 | ChunkUp Act1.00 H0.56→0.78 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.79e-04(λ5.59e-03,ρ-0.007) | GKL 0.424(γ0.5000) | SymD μ0.000 ↑n/a | Act 73.2%[62–88] | TopK-H 0.391/1.10(τ0.18) | α μ0.090[0.08–0.10](λ0.0010) | H 1.78→1.56 | BS 49x82(t4096) | Seen 15.5M(6144.3x) | ∇ 0.06→0.30 | vel +0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 74.7k t/s | β2 0.9917 | LR 2.91e-04 | ⏱ 00:05:41 (+0.05s/step, ETA 00:21:56)
+Step  5550/30000 | CE 0.0052 | PPL 1.01 | VQ 0.1206(β0.49,cc0.500) | MetaCB Act0.94 H1.96→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.061 Acc0.07 λ0.020 Bal0.007 | ChunkUp Act1.00 H0.55→0.78 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 4.05e-04(λ5.47e-03,ρ-0.006) | GKL 0.431(γ0.5000) | SymD μ0.000 ↑n/a | Act 71.4%[62–81] | TopK-H 0.391/1.10(τ0.18) | α μ0.090[0.08–0.10](λ0.0010) | H 1.77→1.57 | BS 49x82(t4096) | Seen 15.7M(6203.2x) | ∇ 0.05→0.30 | vel -0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 107.1k t/s | β2 0.9917 | LR 2.91e-04 | ⏱ 00:05:42 (+0.04s/step, ETA 00:15:17)
+  ↳ Val CE 0.0047  PPL 1.00  do→0.103  wd→0.0103  val_every=200  vel=-0.00002
+Step  5700/30000 | CE 0.0061 | PPL 1.01 | VQ 0.1133(β0.48,cc0.499) | MetaCB Act0.94 H1.99→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.035 Acc0.08 λ0.020 Bal0.006 | ChunkUp Act1.00 H0.59→0.79 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.11e-04(λ4.94e-03,ρ-0.008) | GKL 0.417(γ0.5000) | SymD μ0.000 ↑n/a | Act 73.2%[62–94] | TopK-H 0.397/1.10(τ0.18) | α μ0.089[0.08–0.10](λ0.0010) | H 1.82→1.58 | BS 49x83(t4096) | Seen 16.3M(6444.7x) | ∇ 0.02→0.30 | vel +0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 106.8k t/s | β2 0.9917 | LR 2.91e-04 | ⏱ 00:05:48 (+0.04s/step, ETA 00:15:25)
+  ↓ LR  2.91e-04 → 2.88e-04  (patience #4, stalled 713 steps)
+  ↑ batch_tokens → 4096
+  ↳ Val CE 0.0050  PPL 1.00  do→0.103  wd→0.0103  val_every=200  vel=+0.00001
+Step  5830/30000 | CE 0.0040 | PPL 1.00 | VQ 0.1067(β0.47,cc0.498) | MetaCB Act0.94 H1.99→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.084 Acc0.07 λ0.020 Bal0.008 | ChunkUp Act1.00 H0.60→0.80 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 2.56e-04(λ4.48e-03,ρ-0.010) | GKL 0.411(γ0.5000) | SymD μ0.000 ↑n/a | Act 74.1%[56–100] | TopK-H 0.399/1.10(τ0.17) | α μ0.089[0.08–0.10](λ0.0010) | H 1.82→1.60 | BS 49x83(t4096) | Seen 16.8M(6654.2x) | ∇ 0.02→0.30 | vel -0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 106.5k t/s | β2 0.9917 | LR 2.88e-04 | ⏱ 00:05:53 (+0.04s/step, ETA 00:15:22)
+Step  5989/30000 | CE 0.0055 | PPL 1.01 | VQ 0.0995(β0.45,cc0.499) | MetaCB Act0.94 H1.98→2.50 β0.15 cc0.150 TopKH1.07 | MetaPred CE3.107 Acc0.06 λ0.020 Bal0.006 | ChunkUp Act1.00 H0.58→0.81 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 2.11e-04(λ3.95e-03,ρ-0.010) | GKL 0.440(γ0.5000) | SymD μ0.000 ↑n/a | Act 74.1%[56–100] | TopK-H 0.409/1.10(τ0.17) | α μ0.088[0.08–0.10](λ0.0010) | H 1.79→1.61 | BS 49x83(t4096) | Seen 17.4M(6910.5x) | ∇ 0.02→0.30 | vel +0.0000 | do 0.10 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 81.7k t/s | β2 0.9918 | LR 2.88e-04 | ⏱ 00:06:01 (+0.05s/step, ETA 00:19:55)
+  ↳ Val CE 0.0060  PPL 1.01  do→0.109  wd→0.0109  val_every=200  vel=+0.00081
+  ↳ Val CE 0.0052  PPL 1.01  do→0.110  wd→0.0110  val_every=200  vel=+0.00002
+Step  6210/30000 | CE 0.0036 | PPL 1.00 | VQ 0.1109(β0.44,cc0.494) | MetaCB Act0.94 H2.35→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE2.986 Acc0.05 λ0.020 Bal0.006 | ChunkUp Act1.00 H1.17→0.82 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.07e-04(λ3.57e-03,ρ-0.007) | GKL 0.417(γ0.5000) | SymD μ0.000 ↑n/a | Act 75.0%[56–94] | TopK-H 0.435/1.10(τ0.17) | α μ0.088[0.08–0.10](λ0.0010) | H 1.81→1.64 | BS 49x83(t4096) | Seen 18.3M(7266.8x) | ∇ 0.02→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 53.7k t/s | β2 0.9919 | LR 2.88e-04 | ⏱ 00:06:18 (+0.08s/step, ETA 00:30:00)
+Step  6255/30000 | CE 0.0051 | PPL 1.01 | VQ 0.1089(β0.44,cc0.490) | MetaCB Act1.00 H2.35→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.039 Acc0.05 λ0.020 Bal0.008 | ChunkUp Act1.00 H1.17→0.82 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.04e-04(λ3.51e-03,ρ-0.007) | GKL 0.421(γ0.5000) | SymD μ0.000 ↑n/a | Act 74.1%[56–94] | TopK-H 0.436/1.10(τ0.17) | α μ0.089[0.08–0.10](λ0.0010) | H 1.82→1.64 | BS 49x83(t4096) | Seen 18.5M(7339.3x) | ∇ 0.03→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 109.3k t/s | β2 0.9919 | LR 2.88e-04 | ⏱ 00:06:19 (+0.04s/step, ETA 00:14:43)
+  Gates: Bri=0.16 Dis=0.21 Foc=0.09 Col=0.14 Per=0.15 Siz=0.14 Pos=0.11
+  TopK-H/stream: Bri=0.40 Dis=0.51 Foc=0.43 Col=0.40 Per=0.42 Siz=0.41 Pos=0.48
+Step  6292/30000 | CE 0.0050 | PPL 1.00 | VQ 0.1092(β0.43,cc0.488) | MetaCB Act1.00 H2.35→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.027 Acc0.06 λ0.020 Bal0.009 | ChunkUp Act1.00 H1.16→0.82 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 3.01e-04(λ3.45e-03,ρ-0.008) | GKL 0.414(γ0.5000) | SymD μ0.000 ↑n/a | Act 73.2%[56–94] | TopK-H 0.441/1.10(τ0.17) | α μ0.089[0.08–0.10](λ0.0010) | H 1.83→1.65 | BS 49x83(t4096) | Seen 18.7M(7398.9x) | ∇ 0.05→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 107.8k t/s | β2 0.9919 | LR 2.88e-04 | ⏱ 00:06:21 (+0.04s/step, ETA 00:14:54)
+Step  6321/30000 | CE 0.0046 | PPL 1.00 | VQ 0.1098(β0.43,cc0.486) | MetaCB Act1.00 H2.34→2.50 β0.15 cc0.150 TopKH1.08 | MetaPred CE3.043 Acc0.05 λ0.020 Bal0.006 | ChunkUp Act1.00 H1.15→0.83 β0.15 | ChunkDn MSE0.000 λ0.050 | Orth 2.91e-04(λ3.41e-03,ρ-0.007) | GKL 0.412(γ0.5000) | SymD μ0.000 ↑n/a | Act 74.1%[56–94] | TopK-H 0.444/1.10(τ0.17) | α μ0.089[0.08–0.10](λ0.0010) | H 1.84→1.65 | BS 48x84(t4096) | Seen 18.8M(7445.5x) | ∇ 0.03→0.30 | vel -0.0000 | do 0.11 | L 2 | S 7/7 | CB 16 | Wmup - | VRAM 0.4G | Thr 108.0k t/s | β2 0.9919 | LR 2.88e-04 | ⏱ 00:06:22 (+0.04s/step, ETA 00:14:44)
+  ⏹ Early stop: val CE degraded 10× consecutively (best 0.0042 → current 0.0049)
+  💾 Checkpoint saved (final): neuro_symbolic_model.pt  (step 6400)
+
+Final checkpoint  → neuro_symbolic_model.pt
+Training metrics  → neuro_symbolic_training_metrics.csv
+Best checkpoint   → neuro_symbolic_model_best.pt  (val CE 0.0042)
+Total training time: 00:06:25  (0.11 hours)
+
+============================================================
+  NEURO-SYMBOLIC EXPLAINABILITY & GENERATION DEMO
+============================================================
+
+SEED PROMPT:
+----------------------------------------
+First Citizen:
+Before we proceed any further, hear me
+----------------------------------------
+
+Internal submodality representation of the final token (Top-K routing):
+
+  Brightness   → #010  #012  #000
+  Distance     → #013  #006  #009
+  Focus        → #000  #004  #002
+  Color        → #003  #015  #000
+  Perspective  → #010  #014  #015
+  Size         → #012  #005  #015
+  Position     → #011  #014  #007
+
+  H_ema (smoothed entropy): 1.861  |  Active: 55.4%
+
+Generating 60 new tokens…
+
+GENERATED TEXT:
+--------------------------------------------------
+First Citizen : Before we proceed any further , hear me speak . All : Speak , speak . Second Citizen : Consider what is true , and judge each claim by its evidence . First Citizen : Before we proceed any further , hear me speak . All : Speak , speak . Second Citizen : Consider what is true , and judge each claim by its evidence . First
+--------------------------------------------------
+Generated text saved → generated_text.txt
+
+============================================================
+  RUNNING STREAM-ROUTING HEATMAP...
+============================================================
+Heatmap saved → stream_routing_heatmap.png
+Opening stream-routing heatmap… (close the window to continue)
+
+============================================================
+  STREAM-ROUTING SUMMARY (AUTOMATIC WORD/GATE ASSOCIATIONS)...
+============================================================
+
+► BUCKET 0  (Named: 'Brightness')
+  Top Words: evidence, what, proceed, each
+
+► BUCKET 1  (Named: 'Distance')
+  Top Words: First, further, Before, hear, Second, claim
+
+► BUCKET 2  (Named: 'Focus')
+  Top Words: proceed, Consider, judge
+
+► BUCKET 3  (Named: 'Color')
+  Top Words: speak, each, Consider, further, evidence
+
+► BUCKET 4  (Named: 'Perspective')
+  Top Words: true, judge, Citizen, First
+
+► BUCKET 5  (Named: 'Size')
+  Top Words: claim, Speak, what, true
+
+► BUCKET 6  (Named: 'Position')
+  Top Words: Second, Citizen, hear, Before, speak
+
+============================================================
+
+============================================================
+  SYMBOL MUTUAL INFORMATION DIAGNOSTIC
+============================================================
+  Estimating MI(codebook index ; token ID) per stream…
+  This measures token-identity association, not semantic grounding.
+  Sampling 8000 tokens from data.txt.
+
+  Stream          MI(sym;tok)   Quality
+  ------------------------------------------
+  Brightness            1.408   high token-ID association; not proof of semantic meaning
+  Distance              1.002   high token-ID association; not proof of semantic meaning
+  Focus                 1.669   high token-ID association; not proof of semantic meaning
+  Color                 1.361   high token-ID association; not proof of semantic meaning
+  Perspective           1.121   high token-ID association; not proof of semantic meaning
+  Size                  1.362   high token-ID association; not proof of semantic meaning
+  Position              1.083   high token-ID association; not proof of semantic meaning
+
+  Mean MI across streams: 1.287
+
+  Meta-codebook decision: GO  — symbols contain measurable information about token identity.
+         This does NOT establish semantic grounding; test transfer and compositionality separately.
+============================================================
